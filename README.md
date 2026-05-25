@@ -1,73 +1,63 @@
-# React + TypeScript + Vite
+# HR Portal — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Incubyte assessment: React UI for HR managers and employee self-service attendance. Built with Vite, Tailwind CSS, and Vitest.
 
-Currently, two official plugins are available:
+**Companion repo:** [hr-backend](https://github.com/rishabhjha-1/hr-backend)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React 19, TypeScript, Vite, Tailwind CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+| Tab | Purpose |
+|-----|---------|
+| **Employees** | CRUD, search, pagination |
+| **Attendance** | HR view and mark attendance for any employee |
+| **My device** | Employees check in/out with work email |
+| **Payroll** | Pay derived from attendance + annual salary |
+| **Insights** | Salary breakdown by country and job title |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Quick start
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. Start the backend
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Follow [hr-backend README](https://github.com/rishabhjha-1/hr-backend) to run Postgres and the API on port `3000`.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Frontend setup
+
+```bash
+pnpm install
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+UI runs at `http://localhost:5173` (proxies `/api` to the backend).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Full stack with Docker
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+From the monorepo root (parent folder with `docker-compose.yml`):
+
+```bash
+docker compose up --build
 ```
+
+- Frontend: `http://localhost:8080`
+- Backend API: `http://localhost:3000`
+
+## Tests
+
+```bash
+pnpm test
+```
+
+## Build
+
+```bash
+pnpm build
+```
+
+Serve the `dist/` folder with any static host; proxy `/api` to the backend (see `nginx.conf` in the monorepo Docker setup).
+
+## Architecture
+
+See [`artifacts/planning.md`](artifacts/planning.md) for design notes, TDD approach, and trade-offs.
