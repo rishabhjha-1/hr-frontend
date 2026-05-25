@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { AttendanceDashboard } from './components/AttendanceDashboard.js'
 import { EmployeeTable } from './components/EmployeeTable.js'
 import { InsightsDashboard } from './components/InsightsDashboard.js'
+import { PayrollDashboard } from './components/PayrollDashboard.js'
 
-type Tab = 'employees' | 'insights'
+type Tab = 'employees' | 'attendance' | 'payroll' | 'insights'
 
 export default function App() {
   const [tab, setTab] = useState<Tab>('employees')
@@ -15,15 +17,17 @@ export default function App() {
             <p className="text-sm font-medium uppercase tracking-wide text-indigo-600">
               HR Portal
             </p>
-            <h1 className="text-3xl font-semibold text-slate-900">Salary Management</h1>
+            <h1 className="text-3xl font-semibold text-slate-900">Workforce Hub</h1>
             <p className="text-sm text-slate-600">
-              Manage employee records and explore compensation insights across countries and roles.
+              Manage employees, track attendance, run payroll, and explore salary insights.
             </p>
           </div>
 
           <nav className="flex gap-2">
             {[
               ['employees', 'Employees'],
+              ['attendance', 'Attendance'],
+              ['payroll', 'Payroll'],
               ['insights', 'Insights'],
             ].map(([value, label]) => (
               <button
@@ -44,7 +48,15 @@ export default function App() {
       </header>
 
       <main className="mx-auto max-w-7xl px-6 py-8">
-        {tab === 'employees' ? <EmployeeTable /> : <InsightsDashboard />}
+        {tab === 'employees' ? (
+          <EmployeeTable />
+        ) : tab === 'attendance' ? (
+          <AttendanceDashboard />
+        ) : tab === 'payroll' ? (
+          <PayrollDashboard />
+        ) : (
+          <InsightsDashboard />
+        )}
       </main>
     </div>
   )

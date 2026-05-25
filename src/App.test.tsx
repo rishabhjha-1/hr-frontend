@@ -6,8 +6,12 @@ describe('App', () => {
   it('renders salary management navigation', () => {
     render(<App />)
 
-    expect(screen.getByText('Salary Management')).toBeInTheDocument()
+    expect(screen.getByText('HR Portal', { selector: 'p' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Workforce Hub' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Employees' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Attendance' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Payroll' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Insights' })).toBeInTheDocument()
   })
 })
+

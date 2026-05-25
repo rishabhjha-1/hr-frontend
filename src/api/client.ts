@@ -1,4 +1,16 @@
 import type {
+  AttendanceInput,
+  AttendanceListParams,
+  AttendanceRecord,
+  AttendanceSummary,
+  PaginatedAttendance,
+} from '../types/attendance.js'
+import type {
+  PaginatedPayroll,
+  PayrollListParams,
+  PayrollPeriodSummary,
+} from '../types/payroll.js'
+import type {
   CountryInsight,
   CountrySummary,
   Employee,
@@ -92,6 +104,44 @@ export const api = {
     }>(
       `/api/insights/countries/${encodeURIComponent(country)}/job-titles/${encodeURIComponent(jobTitle)}`,
     )
+  },
+
+  listAttendance(params: AttendanceListParams = {}) {
+    return request<PaginatedAttendance>(`/api/attendance${toQuery(params)}`)
+  },
+
+  getAttendance(id: string) {
+    return request<AttendanceRecord>(`/api/attendance/${id}`)
+  },
+
+  createAttendance(input: AttendanceInput) {
+    return request<AttendanceRecord>('/api/attendance', {
+      method: 'POST',
+      body: JSON.stringify(input),
+    })
+  },
+
+  updateAttendance(id: string, input: AttendanceInput) {
+    return request<AttendanceRecord>(`/api/attendance/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(input),
+    })
+  },
+
+  deleteAttendance(id: string) {
+    return request<void>(`/api/attendance/${id}`, { method: 'DELETE' })
+  },
+
+  getAttendanceSummary(params: { from?: string; to?: string } = {}) {
+    return request<AttendanceSummary>(`/api/attendance/summary${toQuery(params)}`)
+  },
+
+  listPayroll(params: PayrollListParams = {}) {
+    return request<PaginatedPayroll>(`/api/payroll${toQuery(params)}`)
+  },
+
+  getPayrollSummary(params: { from?: string; to?: string } = {}) {
+    return request<PayrollPeriodSummary>(`/api/payroll/summary${toQuery(params)}`)
   },
 }
 
