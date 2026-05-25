@@ -1,0 +1,11 @@
+# Run the backend first (from hr-backend repo): docker compose up -d
+# Then start the UI — proxies /api to http://host.docker.internal:3000
+services:
+  frontend:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.standalone.conf:/etc/nginx/conf.d/default.conf:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

@@ -33,16 +33,25 @@ pnpm dev
 
 UI runs at `http://localhost:5173` (proxies `/api` to the backend).
 
-### Full stack with Docker
+### Docker (this repo)
 
-From the monorepo root (parent folder with `docker-compose.yml`):
+1. Start backend + Postgres from [hr-backend](https://github.com/rishabhjha-1/hr-backend):
 
 ```bash
 docker compose up --build
 ```
 
-- Frontend: `http://localhost:8080`
-- Backend API: `http://localhost:3000`
+2. Seed the database (`pnpm db:seed` in hr-backend), then start the UI:
+
+```bash
+docker compose up --build
+```
+
+- Frontend: `http://localhost:8080` (proxies `/api` to backend on your machine)
+
+### Full stack (monorepo)
+
+If you have both folders under one parent project, use the root `docker-compose.yml` there for postgres + backend + frontend in one command.
 
 ## Tests
 
