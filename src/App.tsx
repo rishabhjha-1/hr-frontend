@@ -3,8 +3,9 @@ import { AttendanceDashboard } from './components/AttendanceDashboard.js'
 import { EmployeeTable } from './components/EmployeeTable.js'
 import { InsightsDashboard } from './components/InsightsDashboard.js'
 import { PayrollDashboard } from './components/PayrollDashboard.js'
+import { SelfAttendancePortal } from './components/SelfAttendancePortal.js'
 
-type Tab = 'employees' | 'attendance' | 'payroll' | 'insights'
+type Tab = 'employees' | 'attendance' | 'my-attendance' | 'payroll' | 'insights'
 
 export default function App() {
   const [tab, setTab] = useState<Tab>('employees')
@@ -27,6 +28,7 @@ export default function App() {
             {[
               ['employees', 'Employees'],
               ['attendance', 'Attendance'],
+              ['my-attendance', 'My device'],
               ['payroll', 'Payroll'],
               ['insights', 'Insights'],
             ].map(([value, label]) => (
@@ -52,6 +54,8 @@ export default function App() {
           <EmployeeTable />
         ) : tab === 'attendance' ? (
           <AttendanceDashboard />
+        ) : tab === 'my-attendance' ? (
+          <SelfAttendancePortal />
         ) : tab === 'payroll' ? (
           <PayrollDashboard />
         ) : (

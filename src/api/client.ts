@@ -10,6 +10,7 @@ import type {
   PayrollListParams,
   PayrollPeriodSummary,
 } from '../types/payroll.js'
+import type { SelfAttendanceHistory, SelfSession } from '../types/self.js'
 import type {
   CountryInsight,
   CountrySummary,
@@ -142,6 +143,37 @@ export const api = {
 
   getPayrollSummary(params: { from?: string; to?: string } = {}) {
     return request<PayrollPeriodSummary>(`/api/payroll/summary${toQuery(params)}`)
+  },
+
+  selfIdentify(email: string) {
+    return request<SelfSession>('/api/self/identify', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    })
+  },
+
+  selfAttendanceHistory(email: string) {
+    return request<SelfAttendanceHistory>(`/api/self/attendance${toQuery({ email })}`)
+  },
+
+  selfCheckIn(email: string, workMode: 'office' | 'remote' = 'office') {
+    return request<{ employee: SelfSession['employee']; record: AttendanceRecord }>(
+      '/api/self/check-in',
+      {
+        method: 'POST',
+        body: JSON.stringify({ email, workMode }),
+      },
+    )
+  },
+
+  selfCheckOut(email: string) {
+    return request<{ employee: SelfSession['employee']; record: AttendanceRecord }>(
+      '/api/self/check-out',
+      {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+      },
+    )
   },
 }
 

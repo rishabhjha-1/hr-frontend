@@ -10,6 +10,7 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: 'Workforce Hub' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Employees' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Attendance' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'My device' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Payroll' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Insights' })).toBeInTheDocument()
   })
